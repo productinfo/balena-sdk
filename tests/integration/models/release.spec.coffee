@@ -128,7 +128,7 @@ describe 'Release Model', ->
 
 		beforeEach ->
 			application = @application
-			userId = @application.user.__id
+			userId = @application.organization[0].is_owned_by__user[0].id
 
 			balena.pine.post
 				resource: 'release'

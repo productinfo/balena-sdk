@@ -167,6 +167,14 @@ exports.givenMulticontainerApplication = ->
 						composition: {}
 						start_timestamp: 54321
 				], (pineParams) -> balena.pine.post pineParams
+			,
+				# populate the organization properly as if it was expanded
+				balena.pine.get
+					resource: 'organization'
+					id: @application.organization.__id
+					options: $expand: 'is_owned_by__user'
+				.tap (organization) =>
+					@application.organization = [organization]
 			]
 		.spread (webService, dbService, [oldRelease, newRelease]) =>
 			@webService = webService
